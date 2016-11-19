@@ -40,7 +40,7 @@ width = maxx - minx
 height = maxy - miny
 
 # Start SVG document.
-print('<svg xmlns="http://www.w3.org/2000/svg" viewBox="{} {} {} {}">'.format(minx, miny, width, height))
+print('<svg xmlns="http://www.w3.org/2000/svg" viewBox="{} {} {} {}" width="100%" height="100%">'.format(minx, miny, width, height))
 svgargs = dict(scale_factor=0.05, stroke_color='red')
 
 # Write Gosper curve.

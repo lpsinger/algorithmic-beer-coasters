@@ -1,12 +1,22 @@
 #!/usr/bin/env python
+"""
+
+              a l g o r i t h m i c   c o a s t e r   n o .   1
+               ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+              Two procedurally generated fractal beer coasters.
+
+                        This work is licensed under a
+      Creative Commons Attribution-ShareAlike 4.0 International License
+              (http://creativecommons.org/licenses/by-sa/4.0/).
+
+"""
 import numpy as np
 from shapely import geometry
 
-# Evaluate N iterations of the Lindenmayer sytem for the Gosper curve.
-N = 3
+# Evaluate Lindenmayer system to generate the Gosper curve.
 sequence = 'A'
 rules = {'A': 'A-B--B+A++AA+B-', 'B': '+A-BB--B-A++A+B'}
-for _ in range(N):
+for _ in range(3):
     sequence = ''.join(rules.get(symbol, symbol) for symbol in sequence)
 
 # Translate to vertices of a path.
@@ -29,21 +39,17 @@ exterior = gosper.envelope.buffer(1).exterior
 
 # Determine bounding box for artwork.
 minx, miny, maxx, maxy = exterior.bounds
-
 pad = 1
-minx -= pad
-maxx += pad
-miny -= pad
-maxy += pad
-
-width = maxx - minx
-height = maxy - miny
+minx -= pad; maxx += pad; miny -= pad; maxy += pad
+width = maxx - minx; height = maxy - miny
 
 # Start SVG document.
-print('<svg xmlns="http://www.w3.org/2000/svg" viewBox="{} {} {} {}" width="100%" height="100%">'.format(minx, miny, width, height))
+print('<svg xmlns="http://www.w3.org/2000/svg"')
+print('viewBox="{} {} {} {}" width="4in" height="4in">'.format(
+      minx, miny, width, height))
 svgargs = dict(scale_factor=0.05, stroke_color='red')
 
-# Write Gosper curve.
+# Write Gosper curve and exterior.
 print(gosper.svg(**svgargs))
 
 # Write exterior.

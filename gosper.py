@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-from math import pi, cos, sin
+import numpy as np
+from matplotlib import pyplot as plt
 
 # Evaluate N iterations of the Lindenmayer sytem for the Gosper curve.
 N = 2
@@ -10,21 +11,20 @@ for _ in range(N):
 
 # Translate to vertices of a path.
 nturns = 0
-d = 'M0,0'
+points = [np.zeros(2)]
 for symbol in sequence:
     if symbol == '+':
         nturns += 1
     elif symbol == '-':
         nturns -= 1
     else:
-        heading = nturns * pi / 3
-        d += ' l{:g},{:g}'.format(cos(heading), sin(heading))
+        heading = nturns * np.pi / 3
+        points.append(points[-1] + [np.cos(heading), np.sin(heading)])
+points = np.asarray(points)
 
-svg = """\
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 20 20">
-<path d="{}" style="stroke: black; fill: none; stroke-width: 0.01pt"/>
-</svg>
-""".format(d)
-
-with open('gosper.svg', 'w') as f:
-    f.write(svg)
+# Plot with Matplotlib.
+fig = plt.figure(figsize=(4, 4))
+ax = plt.axes(aspect='equal', frameon=False)
+ax.axis('off')
+ax.plot(*points.T)
+fig.savefig('gosper.pdf')

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 
-              a l g o r i t h m i c   c o a s t e r   n o .   2
+              a l g o r i t h m i c   c o a s t e r   n o .   3
                ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
               Two procedurally generated fractal beer coasters.
 
@@ -16,9 +16,9 @@ import numpy as np
 from shapely import geometry
 
 # Evaluate Lindenmayer system to generate the Hilbert curve.
-sequence = 'A'
-rules = {'A': '-BF+AFA+FB-', 'B': '+AF-BFB-FA+'}
-for _ in range(5):
+sequence = 'X'
+rules = {'X': 'XFYFX+F+YFXFY-F-XFYFX', 'Y': 'YFXFY-F-XFYFX+F+YFXFY'}
+for _ in range(3):
     sequence = ''.join(rules.get(symbol, symbol) for symbol in sequence)
 
 # Translate to vertices of a path.

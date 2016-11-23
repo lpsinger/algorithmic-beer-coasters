@@ -1,2 +1,4 @@
-gosper.svg: gosper.py
+all: gosper.svg hilbert.svg
+
+%.svg: %.py
 	python $< > $@

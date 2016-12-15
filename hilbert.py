@@ -18,7 +18,7 @@ from shapely import geometry
 # Evaluate Lindenmayer system to generate the Hilbert curve.
 sequence = 'A'
 rules = {'A': '-BF+AFA+FB-', 'B': '+AF-BFB-FA+'}
-for _ in range(5):
+for _ in range(4):
     sequence = ''.join(rules.get(symbol, symbol) for symbol in sequence)
 
 # Translate to vertices of a path.

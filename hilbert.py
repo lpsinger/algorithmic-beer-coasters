@@ -33,34 +33,28 @@ for symbol in sequence:
         heading = nturns * np.pi / 2
         points.append(points[-1] + [np.cos(heading), np.sin(heading)])
 
-# Create Gosper curve geometry.
-gosper = geometry.LineString(points)
+# Create curve geometry.
+curve = geometry.LineString(points)
 
 # Create exterior of coaster.
-exterior = gosper.envelope.buffer(1).exterior
+exterior = curve.envelope.buffer(1).exterior
 
 # Determine bounding box for artwork.
 minx, miny, maxx, maxy = exterior.bounds
 width = maxx - minx; height = maxy - miny
 
-# Start SVG document.
+# Connect curve to exterior.
+points[:0] = [[minx, points[0][1]]]
+points[-1:] = [[maxx, points[-1][1]]]
+proj = geometry.Point(points[-1])
+i = np.argmin([pt.distance(proj) for pt in geometry.asMultiPoint(exterior)])
+points += exterior.coords[i:]
+points += exterior.coords[:i + 1]
+
+# Write SVG document.
 pad = 1
 print('<svg xmlns="http://www.w3.org/2000/svg"')
 print('viewBox="{} {} {} {}" width="4in" height="4in">'.format(
       minx - pad, miny - pad, width + 2 * pad, height + 2 * pad))
-svgargs = dict(scale_factor=0.05, stroke_color='red')
-
-# Write Gosper curve and exterior.
-print(gosper.svg(**svgargs))
-
-# Write exterior.
-print(exterior.svg(**svgargs))
-
-# Write lines connecting Gosper curve to exterior.
-endpoint = gosper.coords[0]
-print(geometry.LineString([endpoint, [minx, endpoint[1]]]).svg(**svgargs))
-endpoint = gosper.coords[-1]
-print(geometry.LineString([endpoint, [maxx, endpoint[1]]]).svg(**svgargs))
-
-# End SVG document.
+print(geometry.LineString(points).svg(scale_factor=0.05, stroke_color='red'))
 print('</svg>')

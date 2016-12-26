@@ -8,3 +8,5 @@ evaluated using a [Lindenmayer system](https://en.wikipedia.org/wiki/L-system).
 These scripts have only two dependencies:
 [Shapely](https://pypi.python.org/pypi/Shapely) and
 [Numpy](https://pypi.python.org/pypi/numpy).
+
+![Photograph 1](open.jpg)![Photograph 2](closed.jpg)

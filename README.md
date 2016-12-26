@@ -13,9 +13,15 @@ These scripts have only two dependencies:
 
 ## Manufacturing Hints
 
-I have tested this design in both birch and acrylic on a [ULS VLS 4.60](https://www.ulsinc.com/products/platforms/vls4-60), the laser system available at [TechShop](http://www.techshop.ws). To prepare the files for printing on this machine, open them in Adobe Illustrator or similar vector graphics editor and change the stroke widths to 0.001 and the stroke opacity to 1.0.
+I have tested this design in both birch and acrylic on a [ULS VLS
+4.60](https://www.ulsinc.com/products/platforms/vls4-60), the laser system
+available at [TechShop](http://www.techshop.ws). To prepare the files for
+printing on this machine, open them in Adobe Illustrator or similar vector
+graphics editor and change the stroke widths to 0.001 and the stroke opacity to
+1.0.
 
-![Photograph 1](open.jpg)![Photograph 2](closed.jpg)
+![Photograph 1](open.jpg)
+![Photograph 2](closed.jpg)
 
 ---
 
